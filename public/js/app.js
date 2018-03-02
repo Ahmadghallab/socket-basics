@@ -7,6 +7,7 @@ socket.on('connect', () => {
 socket.on('message', (message) => {
   console.log('New message');
   console.log(message.text);
+  $('.chat-area').append('<p>' + message.text + '</p>');
 });
 
 const $form = $('#chat-form');
