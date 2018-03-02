@@ -5,9 +5,22 @@ socket.on('connect', () => {
 });
 
 socket.on('message', (message) => {
+  let momentTimestamp = moment.utc(message.timestamp);
   console.log('New message');
   console.log(message.text);
-  $('.chat-area').append('<p>' + message.text + '</p>');
+  $('.chat-area').append(
+
+    `<div class="media mb-3">
+      <img class="mr-3" src="http://via.placeholder.com/64x64" alt="Generic placeholder image">
+      <div class="media-body">
+        <h5 class="mt-0">Your name <small>${momentTimestamp.local().format('h:mm a')}</small></h5>
+        ${message.text}
+      </div>
+    </div>`
+
+
+    // '<p>' + momentTimestamp.local().format('h:mm a') + ' ' + message.text + '</p>'
+  );
 });
 
 const $form = $('#chat-form');

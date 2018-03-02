@@ -1,4 +1,5 @@
 const PORT = process.env.PORT || 3000;
+const moment = require('moment');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -11,12 +12,14 @@ io.on('connection', (socket) => {
 
   socket.on('message', (message) => {
     console.log('Message recieved: ' + message.text);
+
+    message.timestamp = moment().valueOf();
     io.emit('message', message);
   });
 
-  socket.emit('message', {
-    text: 'Welcome to the chat applications!'
-  });
+  // socket.emit('message', {
+  //   text: 'Welcome to the chat applications!'
+  // });
 });
 
 http.listen(PORT, () => {
